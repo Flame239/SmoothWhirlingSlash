@@ -48,3 +48,30 @@ bin/
 /settings.json
 /settings.json.tmp
 /application.log
+
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.log
+
+# Local IDE and agent state
+.idea/workspace.xml
+.idea/shelf/
+.idea/httpRequests/
+.idea/dataSources/
+.idea/dataSources.local.xml
+/.agents/
+/.codex/
+/.aws/
+
+# Windows metadata
+Thumbs.db
+Desktop.ini

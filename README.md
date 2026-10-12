@@ -1,41 +1,69 @@
-﻿# SmoothWhirlingSlash
+<div align="center">
 
-A Windows overlay for Path of Exile 2 that shows a calibrated movement range and optionally moves an out-of-range cursor back into it.
+<img src="src/main/resources/icons/whirling-slash.png" alt="Whirling Slash icon" width="80" height="80">
 
-## How it works
+# SmoothWhirlingSlash
 
-Two ellipses define the inner and outer limits. The space between them is the valid cursor range. When snapping is enabled and you hold the trigger key, a cursor outside this range moves along its direction from the calibrated center to halfway between the two ellipse intersections. A cursor already inside the range stays untouched. The exact center has no direction, so it also stays untouched; destinations outside the game client or outside the range after pixel rounding are skipped.
+Keep Whirling Slash flowing in **Path of Exile 2**.
 
-A fresh trigger press checks immediately when detected; holding it checks every 100 ms. Checks never queue up. Focus loss, disabling snapping, or changing settings requires releasing and pressing the trigger again, preventing an old held key from causing unexpected movement. Snapping starts off and requires an available emergency shortcut.
+![Windows x64](https://img.shields.io/badge/Windows-x64-0078D4?style=flat-square)
+![Portable ZIP](https://img.shields.io/badge/Portable-ZIP-2563EB?style=flat-square)
+![Built with Kotlin](https://img.shields.io/badge/Built_with-Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white)
 
-The green range display and dashed midpoint guide are optional. Snapping works with the range display hidden; a highlight around the default E skill slot shows when snapping is enabled. The overlay passes mouse input through and hides while the game is unfocused. Closing or minimizing Settings keeps the current snapping state and leaves the app in the system tray.
+📦 [Download](#download-and-install) &nbsp; · &nbsp; 🎮 [Usage](#use-the-app) &nbsp; · &nbsp; 💬 [Help](#help-and-bug-reports)
 
-Coordinates use physical pixels so the drawn range and cursor movement agree. The game client bounds are captured once at startup: restart after moving or resizing the game, changing monitors/scaling, or restarting PoE2. Use borderless-windowed mode; the skill-slot highlight assumes the standard keyboard/mouse HUD at its default scale.
+</div>
 
-## Controls
+---
 
-| Default | Action |
+Tired of playing Twister with your mouse? Whirling Slash won't fire? **This app is for you!**
+
+A misplaced cursor makes your character run or stand still instead of slashing. **SmoothWhirlingSlash** shows the right cursor range. Turn on snapping to keep your cursor in that range while you hold your skill key.
+
+## Download and install
+
+Requires **64-bit Windows**.
+
+- Open **Releases** and choose the latest version.
+- Download `SmoothWhirlingSlash-portable.zip` under **Assets**.
+- Extract it to a folder, such as your Desktop.
+- Keep the whole folder together. No installer needed.
+
+## Use the app
+
+- Open PoE2 in **borderless-windowed mode**.
+- Start `SmoothWhirlingSlash.exe`.
+- In Settings, set the **snap trigger hotkey** to your Whirling Slash key. The default is **E**.
+- Try the default range. Calibrate only if it feels wrong.
+- Enable **Cursor snapping**. Hold your skill key in the game.
+
+Snapping starts off. Settings save automatically. Click a shortcut to change it. Press Esc to cancel.
+
+| Default shortcut | Action |
 | --- | --- |
-| Hold E | Snap while enabled |
-| Ctrl+Alt+F8 | Toggle range display |
-| Ctrl+Alt+F9 | Toggle snapping |
+| Hold E | Use cursor snapping when enabled |
+| Ctrl+Alt+F8 | Show/hide the range |
+| Ctrl+Alt+F9 | Turn snapping on/off |
 | Ctrl+Alt+F10 | Show/hide Settings |
-| Ctrl+Alt+F12 | Disable snapping immediately |
+| Ctrl+Alt+F12 | Turn snapping off immediately |
 
-The large snapping switch and two smaller display switches are clickable anywhere. Range calibration starts folded to avoid accidental edits. Valid changes save automatically to `settings.json`; invalid edits keep the previous values. Click a shortcut to replace it. Global shortcuts pause during capture, changes apply after key release, and Esc cancels. Snapping stays off after recording until you enable it again.
+Closing Settings keeps the app in the system tray. Right-click its tray icon to exit.
 
-## Portable app
+> [!TIP]
+> Restart the app if you move or resize PoE2, change display settings, or restart the game.
 
-Extract the whole ZIP into a writable folder, open PoE2, and double-click `SmoothWhirlingSlash.exe`. Java is included. Keep the `app` and `runtime` folders beside the executable; extract before running rather than launching inside the ZIP.
+## Help and bug reports
 
-Settings and `application.log` stay beside the executable, including when started from a shortcut. To keep your existing calibration, copy your `settings.json` there. Otherwise the app starts with its built-in defaults. Move or copy the whole folder to move the app and its settings together.
+- **Range missing:** focus PoE2 and turn on the range display.
+- **Snapping unavailable:** check Settings for shortcut conflicts. Choose another shortcut if needed.
+- **App stops unexpectedly:** check `application.log` in the app folder.
 
-Build the folder and ZIP on Windows with JDK 26: `./gradlew.bat portableZip`. Outputs are `build/portable/SmoothWhirlingSlash` and `build/distributions/SmoothWhirlingSlash-portable.zip`. These are generated build outputs; use an extracted copy for daily use.
+Report bugs in **GitHub Issues**. Include your Windows version, what happened, and relevant log excerpts. Remove personal information before sharing logs or screenshots.
 
-## Run and troubleshoot
+---
 
-For development, use JDK 26 and open PoE2 before launching the included **Whirling Slash** IDEA configuration, or run `./gradlew.bat run`. Development runs store settings and logs in the working directory. Run tests with `./gradlew.bat test`; Swing tests need a desktop session.
+## Disclaimer
 
-Unexpected errors stop the app and append the original exception to `application.log` beside `settings.json`. Send that log when reporting a failure. Corrupt settings remain unchanged.
+The icon is adapted from the [Whirling Slash artwork on PoE2DB](https://poe2db.tw/Whirling_Slash). Path of Exile 2 and its artwork belong to their respective owners. This project is not affiliated with or endorsed by Grinding Gear Games.
 
-Cursor manipulation may violate GGG's automation rules; this app does not claim GGG approval. It does not read game memory, inject code, click, or activate skills. The icon is adapted from the [Whirling Slash artwork on PoE2DB](https://poe2db.tw/Whirling_Slash).
+Cursor manipulation may violate GGG's automation rules; this app does not claim GGG approval.
