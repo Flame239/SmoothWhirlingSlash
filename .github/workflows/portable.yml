@@ -48,7 +48,7 @@ jobs:
   release:
     name: Publish portable release
     needs: portable
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: windows-2025
     timeout-minutes: 10
     permissions:
@@ -65,14 +65,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: build-${{ github.run_number }}
           RELEASE_COMMIT: ${{ github.sha }}
-          BUILD_NUMBER: ${{ github.run_number }}
         run: |
-          gh release view "$env:RELEASE_TAG" --json tagName 2>$null
-          if ($LASTEXITCODE -eq 0) {
-            gh release upload "$env:RELEASE_TAG" "release/SmoothWhirlingSlash-portable.zip" --clobber
-          } else {
-            gh release create "$env:RELEASE_TAG" "release/SmoothWhirlingSlash-portable.zip" --target "$env:RELEASE_COMMIT" --generate-notes --title "Build $env:BUILD_NUMBER" --latest
+          $tags = @(gh api --paginate "repos/$env:GH_REPO/tags?per_page=100" --jq '.[].name')
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $version = 0
+          foreach ($tag in $tags) {
+            if ($tag -match '^v(\d+)$') {
+              $version = [Math]::Max($version, [int]$Matches[1])
+            }
           }
+          $releaseTag = "v$($version + 1)"
+          gh release create "$releaseTag" "release/SmoothWhirlingSlash-portable.zip" --target "$env:RELEASE_COMMIT" --generate-notes --title "$releaseTag" --latest
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
