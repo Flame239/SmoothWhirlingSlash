@@ -22,7 +22,7 @@ A misplaced cursor makes your character run or stand still instead of slashing. 
 
 ## See it in action
 
-[Watch the MP4](docs/media/whirling-slash-demo.mp4)
+https://github.com/user-attachments/assets/8275a287-68f3-4c34-b415-41b98855e8c5
 
 ## Download and install
 
