@@ -20,6 +20,14 @@ Tired of playing Twister with your mouse? Whirling Slash won't fire? **This app 
 
 A misplaced cursor makes your character run or stand still instead of slashing. **SmoothWhirlingSlash** shows the right cursor range. Turn on snapping to keep your cursor in that range while you hold your skill key.
 
+## See it in action
+
+**Snap off:** your character runs toward the cursor. **Snap on:** the cursor jumps into range and the slash starts.
+
+![Comparison showing the character running without snapping and the cursor moving into range with snapping, with freeze frames and slow motion](docs/media/whirling-slash-demo.gif)
+
+[Watch the MP4](docs/media/whirling-slash-demo.mp4)
+
 ## Download and install
 
 Requires **64-bit Windows**.
