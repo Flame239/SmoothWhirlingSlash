@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.4.20"
-    kotlin("plugin.serialization") version "2.4.20"
+    kotlin("jvm") version "2.4.21"
+    kotlin("plugin.serialization") version "2.4.21"
     application
 }
 
@@ -15,7 +15,7 @@ dependencies {
     // IDEA's Java type inference uses annotations absent from kotlin-stdlib's older dependency.
     compileOnly("org.jetbrains:annotations:26.1.0")
     testCompileOnly("org.jetbrains:annotations:26.1.0")
-    implementation("com.formdev:flatlaf:3.7")
+    implementation("com.formdev:flatlaf:3.7.2")
     implementation("net.java.dev.jna:jna:5.19.1")
     implementation("net.java.dev.jna:jna-platform:5.19.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
