@@ -22,11 +22,19 @@ Coordinates use physical pixels so the drawn range and cursor movement agree. Th
 | Ctrl+Alt+F10 | Show/hide Settings |
 | Ctrl+Alt+F12 | Disable snapping immediately |
 
-The large snapping switch and two smaller display switches are clickable anywhere. Range calibration starts folded to avoid accidental edits. Valid changes save automatically to `settings.json` in the working directory; invalid edits keep the previous values. Click a shortcut to replace it. Global shortcuts pause during capture, changes apply after key release, and Esc cancels. Snapping stays off after recording until you enable it again.
+The large snapping switch and two smaller display switches are clickable anywhere. Range calibration starts folded to avoid accidental edits. Valid changes save automatically to `settings.json`; invalid edits keep the previous values. Click a shortcut to replace it. Global shortcuts pause during capture, changes apply after key release, and Esc cancels. Snapping stays off after recording until you enable it again.
+
+## Portable app
+
+Extract the whole ZIP into a writable folder, open PoE2, and double-click `SmoothWhirlingSlash.exe`. Java is included. Keep the `app` and `runtime` folders beside the executable; extract before running rather than launching inside the ZIP.
+
+Settings and `application.log` stay beside the executable, including when started from a shortcut. To keep your existing calibration, copy your `settings.json` there. Otherwise the app starts with its built-in defaults. Move or copy the whole folder to move the app and its settings together.
+
+Build the folder and ZIP on Windows with JDK 26: `./gradlew.bat portableZip`. Outputs are `build/portable/SmoothWhirlingSlash` and `build/distributions/SmoothWhirlingSlash-portable.zip`. These are generated build outputs; use an extracted copy for daily use.
 
 ## Run and troubleshoot
 
-Use JDK 26 and open PoE2 before launching the included **Whirling Slash** IDEA configuration, or run `./gradlew.bat run`. Run tests with `./gradlew.bat test`; Swing tests need a desktop session.
+For development, use JDK 26 and open PoE2 before launching the included **Whirling Slash** IDEA configuration, or run `./gradlew.bat run`. Development runs store settings and logs in the working directory. Run tests with `./gradlew.bat test`; Swing tests need a desktop session.
 
 Unexpected errors stop the app and append the original exception to `application.log` beside `settings.json`. Send that log when reporting a failure. Corrupt settings remain unchanged.
 

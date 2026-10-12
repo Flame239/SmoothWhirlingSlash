@@ -10,9 +10,9 @@ class ApplicationErrorsTest {
     private val classpath = System.getProperty("test.runtimeClasspath")
 
     private fun run(directory: Path, mode: String, log: String = "application.log",
-        mainClass: String = "org.poe2.ApplicationErrorsProbe"): Pair<Int, String> {
+        mainClass: String = "org.poe2.ApplicationErrorsProbe", jvmOptions: List<String> = emptyList()): Pair<Int, String> {
         val output = directory.resolve("console.txt")
-        val command = listOf(java, "--enable-native-access=ALL-UNNAMED", "-cp", classpath, mainClass) +
+        val command = listOf(java, "--enable-native-access=ALL-UNNAMED") + jvmOptions + listOf("-cp", classpath, mainClass) +
             if (mainClass.endsWith("Probe")) listOf(mode, log) else emptyList()
         val process = ProcessBuilder(command).directory(directory.toFile())
             .redirectErrorStream(true).redirectOutput(output.toFile()).start()
@@ -98,5 +98,17 @@ class ApplicationErrorsTest {
         val log = Files.readString(directory.resolve("application.log"))
         assertTrue(log.contains("JsonDecodingException"))
         assertEquals("broken json", Files.readString(directory.resolve("settings.json")))
+    }
+
+    @Test fun `portable startup reads settings and writes logs beside launcher instead of working directory`() = temporary { directory ->
+        val appDirectory = Files.createDirectory(directory.resolve("Portable App"))
+        Files.writeString(appDirectory.resolve("settings.json"), "broken portable json")
+        val (code, console) = run(directory, "settings", mainClass = "org.poe2.MainKt",
+            jvmOptions = listOf("-DwhirlingSlash.directory=$appDirectory"))
+        assertEquals(1, code, console)
+        assertTrue(Files.readString(appDirectory.resolve("application.log")).contains("JsonDecodingException"))
+        assertEquals("broken portable json", Files.readString(appDirectory.resolve("settings.json")))
+        assertFalse(Files.exists(directory.resolve("application.log")))
+        assertFalse(Files.exists(directory.resolve("settings.json")))
     }
 }

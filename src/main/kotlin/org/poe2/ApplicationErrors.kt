@@ -32,7 +32,7 @@ object ApplicationErrors {
     private val reported = Collections.newSetFromMap(IdentityHashMap<Throwable, Boolean>())
     private var file: OutputStream? = null
 
-    fun install(path: Path = Path.of("application.log")) {
+    fun install(path: Path = ApplicationFiles.log) {
         Thread.setDefaultUncaughtExceptionHandler { thread, error -> fatal(error, thread) }
         try {
             file = Files.newOutputStream(path, CREATE, APPEND)
